@@ -1,57 +1,57 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios'
 import NavBar from './components/NavBar';
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import Home from './components/Home';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Home from './components/Home';
 
 function App() {
-  handleLogin = (data) => {
-    this.setState({
+  const [userStatus, setUserStatus] = useState({
+    isLoggedIn: false,
+    user: {}
+  })
+
+  const handleLogin = (data) => {
+    userStatus = setUserStatus({
       isLoggedIn: true,
       user: data.user
     })
   }
-  handleLogout = () => {
-    this.setState({
+
+  const handleLogout = () => {
+    userStatus = setUserStatus({
       isLoggedIn: false,
       user: {}
     })
   }
 
-  loginStatus = () => {
+  const loginStatus = () => {
     axios.get('http://localhost:3001/logged_in',
       { withCredentials: true })
       .then(response => {
         if (response.data.logged_in) {
-          this.handleLogin(response)
+          handleLogin(response)
         } else {
-          this.handleLogout()
+          handleLogout()
         }
       })
       .catch(error => console.log('api errors:', error))
   };
 
-  useEffect(() => {
-    // for demo purposes, hardcoded URL
-    axios.get('http://localhost:3000/cats').then(res => {
-      console.log(res);
-    })
-  }, [])
 
   return (
     <div className="App">
-      <NavBar />
       <BrowserRouter>
-          <Switch>
-            <Route exact path='/' component={<Home />}/>
-            <Route exact path='/login' component={<Login />}/>
-            <Route exact path='/signup' component={<Signup />}/>
-          </Switch>
-        </BrowserRouter>
+      <NavBar />
+        <Routes>
+          <Route path='/' element = {<Home />} />
+          <Route path='/login' element={<Login handleLogin={handleLogin} />} />
+          <Route path='/signup' element={<Signup handleLogin={handleLogin} />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
