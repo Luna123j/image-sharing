@@ -10,8 +10,9 @@ const Signup = (props) => {
   })
 
   const handleChange = (event) => {
-    const { name, value } = event.target
-    userInfo = setUserInfo({
+    let { name, value } = event.target
+    setUserInfo({
+      ...userInfo,
       [name]: value
     })
   };
@@ -26,13 +27,14 @@ const Signup = (props) => {
       password_confirmation: password_confirmation
     }
 
-    axios.post('http://localhost:3001/users', { user }, { withCredentials: true })
+    axios.post('http://localhost:3000/users', { user })
       .then(response => {
         if (response.data.status === 'created') {
           props.handleLogin(response.data)
-          redirect()
+          // redirect()
         } else {
-          userInfo = setUserInfo({
+          setUserInfo({
+            ...userInfo,
             errors: response.data.errors
           })
         }

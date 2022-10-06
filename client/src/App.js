@@ -14,23 +14,29 @@ function App() {
     user: {}
   })
 
+  useEffect(() => {
+    // for demo purposes, hardcoded URL
+    axios.get('http://localhost:3000/cats').then(res => {
+      console.log(res);
+    })
+  }, [])
+
   const handleLogin = (data) => {
-    userStatus = setUserStatus({
+    setUserStatus({
       isLoggedIn: true,
       user: data.user
     })
   }
 
   const handleLogout = () => {
-    userStatus = setUserStatus({
+    setUserStatus({
       isLoggedIn: false,
       user: {}
     })
   }
 
   const loginStatus = () => {
-    axios.get('http://localhost:3001/logged_in',
-      { withCredentials: true })
+    axios.get('http://localhost:3000/logged_in')
       .then(response => {
         if (response.data.logged_in) {
           handleLogin(response)

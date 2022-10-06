@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 const Login = (props) => {
-  const [userInfo, setUserInfo] = useState({
+  let [userInfo, setUserInfo] = useState({
     username: '',
     email: '',
     password: '',
@@ -10,8 +10,9 @@ const Login = (props) => {
   })
 
   const handleChange = (event) => {
-    const { name, value } = event.target
-    userInfo = setUserInfo({
+    let { name, value } = event.target;
+    setUserInfo({
+      ...userInfo,
       [name]: value
     })
   };
@@ -25,13 +26,14 @@ const Login = (props) => {
       password: password
     }
 
-    axios.post('http://localhost:3001/login', { user }, { withCredentials: true })
+    axios.post('http://localhost:3000/login', { user })
       .then(response => {
         if (response.data.logged_in) {
           props.handleLogin(response.data)
-          redirect()
+          // redirect()
         } else {
-          userInfo = setUserInfo({
+          setUserInfo({
+            ...userInfo,
             errors: response.data.errors
           })
         }
