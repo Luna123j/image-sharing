@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import './UploadImage'
+import './UploadImage.scss'
 const UploadImage = (props) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const imageSubmitHandler = () => {
 
   }
 
-  const handleClick = () => {
-    props.toggle();
-  };
 
   return (
     <div className="popup-box">
       <div className="box">
-        <span className="close-icon" onClick={handleClick}>X   </span>
+        <span className="close-icon" onClick={props.toggle}>X   </span>
         <p>I'm A Pop Up!!!</p>
         {selectedImage && (
           <div>
