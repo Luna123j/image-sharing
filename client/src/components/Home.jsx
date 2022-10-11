@@ -1,11 +1,20 @@
-import React from "react"
+import React, { useState } from "react"
 import NavBar from "./NavBar";
 import UploadImage from "./UploadImage";
-const Home = ()=>{
+const Home = () => {
 
-  return(
+  const [popup, setpopup] = useState(false)
+  const submitHandler = () => {
+    setpopup(true);
+    { popup ? <UploadImage /> : null }
+  }
+
+  return (
     <div>
-      <UploadImage />
+      <form onSubmit={submitHandler}>
+        <button type='submit'>Share</button>
+      </form>
+
     </div>
   )
 }
