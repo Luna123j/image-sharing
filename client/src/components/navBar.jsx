@@ -1,8 +1,8 @@
 import React from "react"
 import './NavBar.scss'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-const NavBar = () => {
+const NavBar = (props) => {
 
   return (
     <div>
@@ -19,12 +19,19 @@ const NavBar = () => {
             <li className="nav-item">
               <Link className="nav-link" to='/my-sharing'>My Sharing</Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to='/login'>Log In</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to='/signup'>Sign Up</Link>
-            </li>
+            {props.loginStatus.isLoggedIn ?
+              <li className="nav-item">
+                {props.loginStatus.user.username} | <button className="nav-link" onClick={props.handleLogout}>Logout</button>
+              </li> :
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to='/login'>Log In</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to='/signup'>Sign Up</Link>
+                </li>
+              </>
+            }
           </ul>
           <form className="form-inline my-2 my-lg-0 searchForm">
             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />

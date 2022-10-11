@@ -41,6 +41,7 @@ function App() {
       .then(response => {
         if (response.data.logged_in) {
           handleLogin(response)
+          console.log("this is the login response",response)
         } else {
           handleLogout()
         }
@@ -55,7 +56,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <NavBar />
+      <NavBar loginStatus = {userStatus} handleLogout={handleLogout}/>
         <Routes>
           <Route path='/' element = {<Home />} />
           <Route path='/login' element={<Login handleLogin={handleLogin} />} />
