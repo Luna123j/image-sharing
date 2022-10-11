@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
+import Personal from './components/Personal';
 
 function App() {
   const [userStatus, setUserStatus] = useState({
@@ -47,6 +48,9 @@ function App() {
       .catch(error => console.log('api errors:', error))
   };
 
+  const handleMyPage = ()=>{
+
+  }
 
   return (
     <div className="App">
@@ -56,6 +60,8 @@ function App() {
           <Route path='/' element = {<Home />} />
           <Route path='/login' element={<Login handleLogin={handleLogin} />} />
           <Route path='/signup' element={<Signup handleLogin={handleLogin} />} />
+          <Route path='/my-sharing' element={<Personal handleMyPage={handleMyPage} />} />
+
         </Routes>
       </BrowserRouter>
     </div>

@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <div className="home">
       <div className="btn" onClick={submitHandler}>
-        <button type='submit'>Share</button>
+        <button>Share Your Image</button>
       </div>
       {popup ? <UploadImage toggle={submitHandler}/> : null}
       
