@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+
 const Login = (props) => {
   let [userInfo, setUserInfo] = useState({
     username: '',
@@ -8,6 +10,7 @@ const Login = (props) => {
     password: '',
     errors: ''
   })
+  const navigate = useNavigate()
 
   const handleChange = (event) => {
     let { name, value } = event.target;
@@ -30,7 +33,7 @@ const Login = (props) => {
       .then(response => {
         if (response.data.logged_in) {
           props.handleLogin(response.data)
-          // redirect()
+          navigate('/')
         } else {
           setUserInfo({
             ...userInfo,
@@ -40,10 +43,6 @@ const Login = (props) => {
       })
       .catch(error => console.log('api errors:', error))
   };
-
-  const redirect = () => {
-    props.history.push('/')
-  }
 
   const handleErrors = () => {
     return (

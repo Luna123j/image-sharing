@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+
 const Signup = (props) => {
   const [userInfo, setUserInfo] = useState({
     username: '',
@@ -8,6 +10,7 @@ const Signup = (props) => {
     password_confirmation: '',
     errors: ''
   })
+  const navigate = useNavigate()
 
   const handleChange = (event) => {
     let { name, value } = event.target
@@ -31,7 +34,8 @@ const Signup = (props) => {
       .then(response => {
         if (response.data.status === 'created') {
           props.handleLogin(response.data)
-          // redirect()
+          
+          navigate('/')        
         } else {
           setUserInfo({
             ...userInfo,
